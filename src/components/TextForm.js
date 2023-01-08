@@ -3,31 +3,37 @@ import React,{useState} from 'react'
 export default function TextForm(props) {
     const handleUpClick = () =>{
         // console.log("UpperCase was clicked" + text);
-        let newText = text.toUpperCase();
-        setText(newText)
+        let newText =text.toUpperCase();
+        setText(newText);
+        props.showAlert("Convert Into UpperCase!","primary");
     }
     const handleDownClick = () =>{
-        // console.log("LowerCase was clicked" + text);
-        let newText = text.toLowerCase();
-        setText(newText)
+        // console.log("UpperCase was clicked" + text);
+        let newText =text.toLowerCase();
+        setText(newText);
+        props.showAlert("Convert Into UpperCase!","success");
     }
     const handleClearClick = () =>{
         // console.log("LowerCase was clicked" + text);
         let newText = '';
-        setText(newText)
+        setText(newText);
+        props.showAlert("Clear Text!","danger");
     }
     const handleCopy = () =>{
         var text = document.getElementById("myBox");
         text.select();
         navigator.clipboard.writeText(text.value);
+        props.showAlert("Copied Text!","warning");
     }
     const handleExtraSpaces = () =>{
         let newText = text.split(/[ ]+/);
-        setText(newText.join(" "))
+        setText(newText.join(" "));
+        props.showAlert("Extra Space Removed!","info");
     }
     const speak = () => {
         let msg = new SpeechSynthesisUtterance(text);
         window.speechSynthesis.speak(msg);
+        props.showAlert("Speak loud!","success");
         const toogle = document.getElementById('toggle')
         if (toogle.textContent === "Speak") {
             toogle.innerHTML = "Stop"
@@ -54,10 +60,10 @@ export default function TextForm(props) {
    // word and character counter
     return (
         <>
-        <div className="container">
+        <div className="container" style={{color: props.mode==='dark'?'white':'black'}} >
             <h1>{props.heading}</h1>
             <div className="mb-3">
-                <textarea className="form-control" value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
+                <textarea className="form-control" style={{backgroundColor: props.mode==='light'?'white':'grey', color: props.mode==='light'?'black':'white'}} value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
             </div>
             <button className="btn btn-primary mx-1" onClick={handleUpClick}>Convert To Uppercase</button>
             <button className="btn btn-primary mx-1" onClick={handleDownClick} > Convert To Lowercase</button>
@@ -68,14 +74,14 @@ export default function TextForm(props) {
 
 
         </div>
-        <div className="container my-3">
+        <div className="container my-3" style={{color: props.mode==='dark'?'white':'black'}}>
             <h2>Your Text Summary</h2>
             <p>{text.split(" ").length} words and {text.length} characters</p>
             <p>{text.split(".").length-1} senetnces</p>
 
             <p>{0.008 * (text.split(' ').length)} Minutes to read.</p>
             <h2>Preview</h2>
-            <p>{text}</p>
+            <p>{text.length>0?text:"Eneter text to preview here ."}</p>
 
         </div>
         </>
