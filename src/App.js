@@ -5,12 +5,12 @@ import TextForm from './components/TextForm';
 import About from './components/About';
 import React, { useState } from 'react';
 import Alert from './components/Alert';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link
-} from "react-router-dom";
+// import {
+//   BrowserRouter as Router,
+//   Routes,
+//   Route,
+//   Link
+// } from "react-router-dom";
 
 // different color palid dark mode , not count empty string
 
@@ -50,17 +50,19 @@ function App() {
     }
   }
   return (
-    <Router>
+    <>
+    {/* <Router> */}
       <Navbar title="TextUtils" aboutText="About" mode={mode} toggleMode={toggleMode}/>
       <Alert alert={alert}/>
       <div className="container my-3">
-      <Routes>
+      {/* <Routes>
           <Route path='/' element={<TextForm heading="Enter The text to analyze below " mode={mode} toggleMode={toggleMode} showAlert={showAlert} />}/>
           <Route path='/about' element={<About />}/>
-      </Routes>
-        
+      </Routes> */}
+        <TextForm heading="Enter The text to analyze below " mode={mode} toggleMode={toggleMode} showAlert={showAlert} />
       </div>
-    </Router>
+    {/* </Router> */}
+    </>
   ); 
 }
 
